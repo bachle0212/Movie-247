@@ -1,10 +1,14 @@
 import React from "react";
-
+import SlideShow from "../../components/slideShow";
+import MovieBlock from "../../components/MovieComponents/MovieBlock/MovieBlock";
 class HomePage extends React.Component {
   render() {
     return (
-      <div>
-        <h1>Hello Worlds</h1>
+      <div className="homePage">
+        <SlideShow />
+        <div className="main-content">
+          <MovieBlock />
+        </div>
       </div>
     );
   }

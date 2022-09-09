@@ -9,7 +9,7 @@ function DefaultLayout(props) {
   return (
     <div className="grid">
       <Header />
-      <div className="content">{props.children}</div>
+      <div className="container">{props.children}</div>
       <Footer />
     </div>
   );

@@ -2,7 +2,7 @@ import axios from "axios";
 import queryString from "query-string";
 
 const axiosClient = axios.create({
-  baseURL: process.env.REACT_APP_API_URL,
+  baseURL: 'http://localhost:5000',
   heades: {
     "Content-Type": "application/json",
   },
@@ -27,7 +27,7 @@ axiosClient.interceptors.response.use(
     return response;
   },
   (error) => {
-    console.log(error.response);
+    console.log(error.message);
   }
 );
 export default axiosClient;

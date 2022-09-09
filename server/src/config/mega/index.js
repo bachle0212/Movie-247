@@ -1,126 +1,36 @@
 const {Storage} = require('megajs')
 const fs = require('fs')
-const path = require('path')
+const path = require('path');
+const { store } = require('../../controllers/movieController');
 
-const storage = new Storage({
-    email: 'bachle.0212@gmail.com',
-    password: 'Lebach123',
-    userAgent:'ExampleClient/1.0'
-});
+var storage;
+function storeLogin(){
+  storage = new Storage({
+      email: 'bachle.0212@gmail.com',
+      password: 'Lebach123',
+      userAgent:'ExampleClient/1.0',
+  });
+  storage.once("error", (err) => {
+    console.log(err);
+  });
+}
 
-var fi;
-var contentLength = 0;
-var uploads = 0;
+var storageReady;
 
 //is empty of mega folder
 function isEmpty(meg) {
   try {
-    const m = meg.children[0].name;
-    return false;
-  } catch {
+    if(meg.children === undefined);
     return true;
+  } catch {
+    return false;
   }
 }
 
 
 
-storage.once("error", (err) => {
-  console.log(err);
-});
 
 
-async function uploadVideo(filePath,fileName,meg) {
-  // console.log(files);
-  async function upload(){
-    const m = fs.createReadStream(filePath);
-        //console.log("new");
-        const filess = await meg.upload(
-          {
-            name: fileName,
-            size: fs.statSync(filePath).size
-          },
-          m
-        ).complete;
-        console.log("The file was uploaded!",filess.nodeId);
-        const link = await filess.link();
-        console.log(returnEmbedCodeVideo(link))
-        // checkFileAndReturnEmbedCode(filess.nodeId)
-        console.log('xong')
-  }
-  await upload();
-}
-
-// Upload Video
-async function checkVideoExistsAndUpload(filePath,fileName){
-  var fi;
-  storage.once("ready", () =>{
-    try{
-      const Movie247Folder = storage.root.children.find(file => file.name === "Movie-247");
-      const videoFolder = Movie247Folder.children.find(files => files.name === "video");
-      //check if empty videoFolder
-      if(videoFolder.children === undefined){
-        uploadVideo(filePath,fileName,videoFolder);
-        return true;
-      }
-      // check exists video name
-      const video = videoFolder.children.find(file => file.name === fileName);
-      if(video){
-        console.log('exists video name');
-        return false;
-      }
-      else{
-        uploadVideo(filePath,fileName,videoFolder);
-        return true;
-      }
-    }catch(error){
-      console.log(error.message)
-    }
-  })
-}
-function returnEmbedCodeVideo(link){
-  const embedCode = link.replace('file','embed');
-  return embedCode;
-}
-
-async function uploadImage(filePath,fileName,meg){
-    async function upload(){
-      const m = fs.createReadStream(filePath);
-      const file = await meg.upload({
-        name:fileName,
-        size: fs.statSync(filePath).size
-      },m).complete;
-      console.log("The file was uploaded!",file.name);
-      const link = await file.link();
-      console.log(link)
-      console.log('xong')
-    }
-    await upload();
-}
-
-function checkImageExistsAndUpload(filePath,fileName){
-  storage.once("ready", ()=>{
-    const Movie247Folder = storage.root.children.find(file => file.name === "Movie-247");
-    const imageFolder = Movie247Folder.children.find(files => files.name === "image");
-    //check if empty image folder
-    if(imageFolder.children === undefined){
-      console.log('aaaa')
-      uploadImage(filePath,fileName,imageFolder);
-      return true;
-    }
-    // check exists image name
-    const image = imageFolder.children.find(file => file.name === fileName);
-    if(image)
-    {
-      console.log("exists image name");
-      return false;
-    }
-    else{
-      uploadImage(filePath,fileName,imageFolder);
-      return true;
-    }
-  })
-
-}
 
 async function deleteVideo(noteId){
     storage.once("ready", ()=>{
@@ -162,16 +72,122 @@ async function deleteImage(noteId){
         console.log("image not found");
         return false;
       }
-      
     }catch(error){
       console.log(error.message);
     }
   })
 }
+
+function checkVideoExistsAndUpload(filePath,fileName){
+    storeLogin();
+    return new Promise((res,req) =>{
+      storage.once('ready',()=>{
+        console.log('aa');
+        const Movie247Folder = storage.root.children.find(file => file.name === "Movie-247");
+        const videoFolder = Movie247Folder.children.find(files => files.name === "video");
+      console.log('go into promise')
+    if(isEmpty(videoFolder)){
+      (async()=>{
+        console.log('aa')
+        const embedCode = await uploadVideo(filePath,fileName,videoFolder);
+        res(embedCode);
+      })();
+        
+    }else{
+      if(videoFolder.children.find(file => file.name === fileName)){
+        console.log('already exits movie');
+        return;
+      }else{
+      (async()=>{ 
+        console.log('aa')
+        const embedCode = await uploadVideo(filePath,fileName,videoFolder);
+        res(embedCode);
+      })()};
+    }})})   
+}
+
+
+async function uploadVideo(filePath,fileName,meg) {
+  return new Promise((res,req) =>{
+    (async()=>{
+      console.log('upload')
+      var embedCode;
+      async function upload(){
+        const m = fs.createReadStream(filePath);
+        const file = await meg.upload({
+          name:fileName,
+          size: fs.statSync(filePath).size
+        },m).complete;
+        console.log("The file was uploaded!",file.name);
+        const link = await file.link();
+        embedCode = returnEmbedCodeVideo(link);
+      }
+      await upload();
+      res(embedCode);
+    })();
+})}
+
+async function checkImageExistsAndUpload(filePath,fileName){
+    storeLogin();
+    return new Promise((res,req) =>{
+      storage.once('ready',()=>{
+        console.log('aa');
+        const Movie247Folder = storage.root.children.find(file => file.name === "Movie-247");
+        const imageFolder = Movie247Folder.children.find(files => files.name === "image");
+      console.log('go into promise')
+    if(isEmpty(imageFolder)){
+      (async()=>{
+        console.log('aa')
+        const embedCode = await uploadImage(filePath,fileName,imageFolder);
+        res(embedCode);
+      })();
+        
+    }else{
+      if(imageFolder.children.find(file => file.name === fileName)){
+        console.log('already exits image');
+        return;
+      }
+      (async()=>{ 
+        console.log('aa')
+        const embedCode = await uploadImage(filePath,fileName,imageFolder);
+        res(embedCode);
+      })();
+    }})})   
+}
+function returnEmbedCodeVideo(link){
+  const embedCode = link.replace('file','embed');
+  return embedCode;
+}
+async function uploadImage(filePath,fileName,meg) {
+  return new Promise((res,req) =>{
+    (async()=>{
+      console.log('upload')
+      var embedCode;
+      async function upload(){
+        const m = fs.createReadStream(filePath);
+        const file = await meg.upload({
+          name:fileName,
+          size: fs.statSync(filePath).size
+        },m).complete;
+        console.log("The file was uploaded!",file.name);
+        const link = await file.link();
+        embedCode = link;
+      }
+      await upload();
+      closeMega();
+      res(embedCode);
+    })();
+})}
+
+function closeMega(){
+  storage.once('ready',()=>{
+    storage.close();
+  })
+}
 // deleteVideo('KjIURDJC');
 // deleteImage('KjIURDJC');
-// uploadVideo();
 // checkImageExistsAndUpload(path.join(__dirname,'abc.jpg'),'abc.jpg');
 // checkVideoExistsAndUpload(path.join(__dirname,'testvideo.mp4'),'testvideo.mp4');
+
 
 module.exports = {checkImageExistsAndUpload,checkVideoExistsAndUpload,deleteImage,deleteVideo}

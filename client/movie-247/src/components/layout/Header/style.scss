@@ -1,157 +1,72 @@
-.menu-top{
+
+.header{
     padding: 0.1rem 1rem;
-    background: linear-gradient(180deg,#8f8f8f 20%,#808080);
+    background: linear-gradient(180deg,#333333 20%,#333333);
+    height: 60px;
+    display: inline;
+}
+.header .logo{
+    float: left;
+    margin: 0 100px 0 0;
+}
+
+.header .search-container .form-search {
+    float: left;
+    display: flex;
+    margin: 10px 0 0 12px;
+}
+
+.header .user {
+    float: right;
+    display: flex;
+    margin: 10px 0 0 12px; 
+}
+
+.header .search-container .form-search .form-control {
+    width: 500px;
 }
 
 .main-menu {
-    margin: left 0;;
-    margin-right: auto;
+    display: flex;
+    background-color: #585858;
+    padding-left: 120px;
 }
 
-.navbar-brand  {
-    width: 200px;
-    display: inline-block;
-    img {
-        max-width: 100%;
-        width: 100%;
-    }
-}
-
-
-@media (max-width: 992px){
-    .navbar-brand{
-        width: 95px;
-    }
-}
-
-
-.main-menu .nav-dropdown-item{
-    margin-right: 5px;
-    margin-left:5px;
-    font-size: 25px;
+.main-menu a{
+    font-size: 20px;
     font-family: Arial, Helvetica, sans-serif;
-}
-
-.main-menu .nav-dropdown-item:hover {
-    background-color: #fffefe;
-    border-radius: 3px;
-    color: rgb(255, 255, 255);
-    z-index: 4;
-}
-
-.main-menu .nav-dropdown-item:hover {
-    background-color: #e4e4d9;
-    border-radius: 3px;
-    color: rgb(243, 243, 243);
-    z-index: 4;
-
-    & .dropdown-menu {
-      display: block;  
-    }
-}
-
-.main-menu .dropdown-menu {
-    margin-top: -1px;
-    min-width: 600px;
+    font-weight: bold;
+    line-height: 20px;
+    padding: 7px;
+    margin-right: 10px;
+    display: block;
+    color: #fd7337;
     
 }
-
-.dropdown-menu {
-    top: 37px;
-    left: -10%;
-    background-color: #d8d7d7;
-    border-radius: 5px;
-    padding: 15px 0;
-    box-shadow: 0 4px 15px rgba(202, 200, 200, 0.5);
-}
-
-
-.main-menu .dropdown-menu .dropdown-item {
-    width: 32.5%;
-    display:inline-block;
-    font-size: 1rem;
-    color: rgb(138, 135, 135);
-
-    &:hover{
-        color: #3a3938;
-        background-color: transparent;
-    }
-
-    &:focus {
-        color: #3a3a39;
-        background-color: transparent;
-    }
-    
-}
-
-#account-dropdow {
-    min-width: 40px;
-    align-items: center;
-    text-align: center;
-}
-
-.search-input {
-    background-color: transparent;
-    border: none;
-    border-bottom: solid 2px  #bbbbbb; 
+.main-menu a:hover{
     color: white;
-    border-radius: 0;   
-    margin: 0;
-    padding: 0;
-
-    &:focus {
-        background-color: transparent;
-        border: none;
-        border-bottom: solid 2px #bbbbbb; 
-        border-radius: 0; 
-        box-shadow: unset;
-        color: rgb(255, 255, 255);
-    }
 }
-.form-search{
-    margin-right: 30px;
+.main-menu .nav-item .nav-link{
+    font-size: 20px;
+    font-weight: bold;
+    font-family: Arial, Helvetica, sans-serif;
+    line-height: 20px;
+    padding: 7px;
+    white-space: nowrap;
+    display: block;
+    color: #fd7337;
 }
-.search-submit{
-    background-color: transparent;
-    border: none;
-    border-bottom: solid 2px  #bbbbbb; 
-    border-radius: 0;   
-    margin: 0;
-    
-    color: #585857;
-
-
-    &:focus {
-        background-color: transparent;
-        border: none;
-        border-bottom: solid 2px #bbbbbb; 
-        border-radius: 0; 
-        box-shadow: unset;
-        color: rgb(92, 92, 92);
-    }
-
-    &:hover {
-        background-color: transparent;
-        border: none;
-        border-bottom: solid 2px #bbbbbb; 
-        border-radius: 0; 
-        box-shadow: unset;
-        color: #474745
-    }
+.main-menu .nav-item .dropdown-item{
+    font-size: 15px;
+    font-family: Arial, Helvetica, sans-serif;
+    display: block;
+    color: black;
 }
 
+.nav-item.dropdown:hover .dropdown-menu {
+    display: block;
+}
 
-.user-avatar-nav {
-    width: 40px;
-    height: 40px;
-    font-size: 32px;
-    color: #585857 ;
-    padding: 0;
-    
-
-    img {
-        width: 100%;
-        display: block;
-        border-radius: 50%;
-    }
+.main-menu .nav-item .nav-link:hover{
+    color:white;
 }

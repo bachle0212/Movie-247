@@ -1,12 +1,10 @@
-// const adminRoute = require("./Admin.route");
-// const authRoute = require("./Auth.route");
+const siteRoute = require('./site');
+const adminRoute = require('./admin');
+const movieRoute = require('./movie');
+function route(app){
+    app.use('/',siteRoute);
+    app.use('/admin',adminRoute);
+    app.use('/movies',movieRoute);
+}
 
-const userRoute = require("./User.route");
-const publicRoute = require("./Public.route");
-
-module.exports = {
-//   adminRoute,
-//   authRoute,
-  publicRoute,
-  userRoute,
-};
+module.exports = route;
