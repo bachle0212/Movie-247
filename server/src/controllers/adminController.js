@@ -47,8 +47,15 @@ class adminController{
     //[DELETE] remove director
     deleteDirector(req,res,next){
       console.log(req.body);
-    }  
-
+    }
+    //[PUT] update user role
+    updateUser(req,res,next){
+      console.log(req.body);
+    }
+    //[DELETE] remove user
+    deleteUser(req,res,next){
+      console.log(req.body);
+    }
 }
 
 

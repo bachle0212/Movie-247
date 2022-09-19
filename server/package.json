@@ -11,6 +11,7 @@
   "license": "ISC",
   "dependencies": {
     "@google-cloud/local-auth": "^2.1.0",
+    "argon2": "^0.29.1",
     "cloudinary": "^1.31.0",
     "cors": "^2.8.5",
     "dotenv": "^16.0.1",

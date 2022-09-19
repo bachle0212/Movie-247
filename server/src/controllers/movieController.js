@@ -70,7 +70,18 @@ class MovieController{
     deleteEpisode(req,res,next){
         console.log(body);
     }
+    //[POST] new movie liked
+    addNewMovieLiked(req,res,next){
 
+    }
+    //[POST] new movie view
+    addNewMovieViewed(req,res,next){
+
+    }
+    //[POST] add new movie comment
+    addNewMovieComments(req,res,next){
+        
+    }
 
     
 }
