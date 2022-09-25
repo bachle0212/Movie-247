@@ -4,7 +4,7 @@ const Schema = mongoose.Schema;
 const MovieSchema = new Schema({
   name: { type: String, required: true},
   other_name: { type: String, required: true},
-  name_URL: { type: String, required: true, unique: true,},
+  name_URL: { trailer:String, vietsub:String, demonstration:String },
   likes: { type: Number, default: 0,},
   views: { type: Number, default: 0,},
   director: {type:mongoose.Types.ObjectId, ref:"director"},

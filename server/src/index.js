@@ -6,6 +6,8 @@ const morgan = require('morgan');
 var bodyParser = require('body-parser');
 const connectDB = require("./config/mongoDb/connectDb");
 const formData = require('express-form-data');
+const path = require('path');
+const methodOverride = require('method-override');
 
 const app = express();
 app.use(express.json());
@@ -21,6 +23,8 @@ app.use(bodyParser.urlencoded({ extended: true }));
 ;
 // Connect mongodb
 connectDB();
+app.use(express.static(path.join(__dirname, 'public')));
+app.use(methodOverride('_method'))
 
 app.use(morgan('combined'));
 app.use(

@@ -141,7 +141,7 @@ async function checkImageExistsAndUpload(filePath,fileName){
         const embedCode = await uploadImage(filePath,fileName,imageFolder);
         res(embedCode);
       })();
-        
+
     }else{
       if(imageFolder.children.find(file => file.name === fileName)){
         console.log('already exits image');

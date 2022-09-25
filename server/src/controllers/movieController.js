@@ -45,7 +45,7 @@ class MovieController{
 
     //[POST] create Movie
     createMovie(req,res,next){
-        console.log(req.body);
+        const movie = new Movie(req.body);
     }
 
     //[PUT] Edit Movie

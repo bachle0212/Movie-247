@@ -1,5 +1,5 @@
 require("dotenv").config();
-
+const multer = require('multer');
 const JWT = require("jsonwebtoken");
 
 const verifyToken = (req, res, next) => {
